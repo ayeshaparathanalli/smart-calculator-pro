@@ -1,101 +1,115 @@
-body {
+/* 🌌 GLOBAL FIX */
+html, body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
   font-family: 'Segoe UI', sans-serif;
-  height: 100vh;
+}
 
+/* 🌌 SPACE BACKGROUND */
+body {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  background: linear-gradient(-45deg, #0f2027, #2c5364, #6a11cb, #2575fc);
-  background-size: 400% 400%;
-  animation: gradientMove 12s ease infinite;
-  padding: 20px;
+  background: radial-gradient(circle at 20% 30%, #1a1a2e, #000000 70%);
 }
 
-@keyframes gradientMove {
-  0% { background-position: 0% }
-  50% { background-position: 100% }
-  100% { background-position: 0% }
+/* ✨ STARS */
+body::before {
+  content: "";
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.4;
+  animation: moveStars 60s linear infinite;
 }
 
-/* Layout */
+@keyframes moveStars {
+  from { transform: translate(0,0); }
+  to { transform: translate(-200px,-200px); }
+}
+
+/* 🔥 MAIN LAYOUT */
 .app-container {
   display: flex;
-  gap: 50px;
-  align-items: center;
-  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  align-items: stretch;
+  z-index: 1;
 }
 
-/* Calculator */
+/* 🧊 CALCULATOR */
 .calculator {
-  width: 380px;
-  padding: 25px;
-  border-radius: 25px;
+  flex: 1;
+  padding: 20px;
+  border-radius: 20px;
 
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   backdrop-filter: blur(20px);
   color: white;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  box-shadow: 0 0 30px rgba(138,43,226,0.3);
 }
 
-/* Display */
+/* 💡 DISPLAY */
 #display {
-  font-size: 40px;
+  font-size: 36px;
   text-align: right;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 10px;
 
   overflow-x: auto;
   white-space: nowrap;
-
-  scrollbar-width: none;
 }
 
-#display::-webkit-scrollbar {
-  display: none;
-}
-
-/* Buttons */
+/* 🔘 BUTTON GRID */
 .top-buttons, .buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 
+/* 🔘 BUTTON */
 button {
-  height: 65px;
+  height: 60px;
   border-radius: 50%;
   border: none;
   font-size: 18px;
   cursor: pointer;
 
-  background: #333;
+  background: rgba(255,255,255,0.05);
   color: white;
-  transition: 0.2s;
 }
 
+/* CLICK */
 button:active {
   transform: scale(0.9);
 }
 
+/* FUNCTION */
 .gray {
-  background: #aaa;
+  background: rgba(255,255,255,0.3);
   color: black;
 }
 
+/* OPERATOR */
 .orange {
-  background: linear-gradient(135deg, #ff9a00, #ff6a00);
+  background: linear-gradient(135deg, #8a2be2, #00f7ff);
 }
 
-/* Zero button */
+/* ZERO */
 .zero {
   grid-column: span 2;
   border-radius: 30px;
 }
 
-/* Extra */
+/* EXTRA */
 .extra {
   margin-top: 10px;
   display: flex;
@@ -108,24 +122,26 @@ button:active {
   height: 40px;
 }
 
-/* Graph */
+/* 📊 GRAPH */
 .graph-box {
-  width: 450px;
+  flex: 1;
   padding: 20px;
   border-radius: 20px;
 
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
   color: white;
+
+  box-shadow: 0 0 20px rgba(0,255,255,0.2);
 }
 
 #chart {
   width: 100% !important;
   height: 300px !important;
-  background: white;
+  background: black;
   border-radius: 10px;
 }
 
-/* Responsive */
+/* 📱 MOBILE */
 @media (max-width: 900px) {
   .app-container {
     flex-direction: column;

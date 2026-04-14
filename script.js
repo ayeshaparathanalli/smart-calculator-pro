@@ -1,33 +1,25 @@
 let display = document.getElementById("display");
 let chart;
 
-// Adjust font size
+// Auto font adjust
 function adjustFontSize() {
-  let length = display.innerText.length;
+  let len = display.innerText.length;
 
-  if (length > 15) {
-    display.style.fontSize = "24px";
-  } else if (length > 10) {
-    display.style.fontSize = "30px";
-  } else {
-    display.style.fontSize = "40px";
-  }
+  if (len > 15) display.style.fontSize = "24px";
+  else if (len > 10) display.style.fontSize = "30px";
+  else display.style.fontSize = "36px";
 }
 
 // Append
-function append(value) {
-  if (display.innerText === "0") {
-    display.innerText = value;
-  } else {
-    display.innerText += value;
-  }
+function append(val) {
+  if (display.innerText === "0") display.innerText = val;
+  else display.innerText += val;
   adjustFontSize();
 }
 
 // Clear
 function clearDisplay() {
   display.innerText = "0";
-  adjustFontSize();
 }
 
 // Backspace
@@ -39,11 +31,8 @@ function backspace() {
 // Calculate
 function calculate() {
   try {
-    let expression = display.innerText
-      .replace("×", "*")
-      .replace("÷", "/");
-
-    display.innerText = eval(expression);
+    let exp = display.innerText.replace("×","*").replace("÷","/");
+    display.innerText = eval(exp);
     adjustFontSize();
   } catch {
     display.innerText = "Error";
@@ -52,39 +41,38 @@ function calculate() {
 
 // Voice
 function startVoice() {
-  let recognition = new webkitSpeechRecognition();
+  let rec = new webkitSpeechRecognition();
 
-  recognition.onresult = function(event) {
-    let speech = event.results[0][0].transcript;
+  rec.onresult = function(e) {
+    let speech = e.results[0][0].transcript;
 
-    speech = speech.replace("plus", "+");
-    speech = speech.replace("minus", "-");
-    speech = speech.replace("into", "*");
-    speech = speech.replace("divide", "/");
+    speech = speech.replace("plus","+")
+                   .replace("minus","-")
+                   .replace("into","*")
+                   .replace("divide","/");
 
     display.innerText = speech;
     calculate();
   };
 
-  recognition.start();
+  rec.start();
 }
 
 // Explain
 function explain() {
-  alert("This is calculated using JavaScript evaluation.");
+  alert("Calculated using JavaScript.");
 }
 
 // Graph
 function drawGraph() {
   let ctx = document.getElementById("chart").getContext("2d");
 
-  let labels = [];
-  let data = [];
+  let labels = [], data = [];
 
   for (let x = 0; x <= 10; x++) {
     labels.push(x);
     try {
-      let y = eval(display.innerText.replace(/x/g, x));
+      let y = eval(display.innerText.replace(/x/g,x));
       data.push(y);
     } catch {
       data.push(0);
@@ -97,10 +85,7 @@ function drawGraph() {
     type: "line",
     data: {
       labels: labels,
-      datasets: [{
-        label: "Graph",
-        data: data
-      }]
+      datasets: [{ data: data }]
     }
   });
 }
