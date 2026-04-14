@@ -1,6 +1,19 @@
 let display = document.getElementById("display");
 let chart;
 
+// Adjust font size
+function adjustFontSize() {
+  let length = display.innerText.length;
+
+  if (length > 15) {
+    display.style.fontSize = "24px";
+  } else if (length > 10) {
+    display.style.fontSize = "30px";
+  } else {
+    display.style.fontSize = "40px";
+  }
+}
+
 // Append
 function append(value) {
   if (display.innerText === "0") {
@@ -8,16 +21,19 @@ function append(value) {
   } else {
     display.innerText += value;
   }
+  adjustFontSize();
 }
 
 // Clear
 function clearDisplay() {
   display.innerText = "0";
+  adjustFontSize();
 }
 
 // Backspace
 function backspace() {
   display.innerText = display.innerText.slice(0, -1) || "0";
+  adjustFontSize();
 }
 
 // Calculate
@@ -28,6 +44,7 @@ function calculate() {
       .replace("÷", "/");
 
     display.innerText = eval(expression);
+    adjustFontSize();
   } catch {
     display.innerText = "Error";
   }
@@ -54,7 +71,7 @@ function startVoice() {
 
 // Explain
 function explain() {
-  alert("This is evaluated using JavaScript logic.");
+  alert("This is calculated using JavaScript evaluation.");
 }
 
 // Graph
